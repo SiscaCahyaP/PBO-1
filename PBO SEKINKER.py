@@ -80,7 +80,6 @@ class Produk:
         query = query % (ProdukId)
         cur.execute(query)
         con.commit()
-        quen = cur.fetchall()
         a = input("Masukkan Nama Produk : ")
         b = input("Masukkan Harga Produk : Rp. ")
         c = input("Masukkan Merk Produk : ")
@@ -98,7 +97,6 @@ class Produk:
         query = query % (ProdukId)
         cur.execute(query)
         con.commit()
-        quen = cur.fetchall()
         query = "DELETE FROM produk Where produkid = \'%s\' "
         query = query % (ProdukId)
         cur.execute(query)
@@ -122,7 +120,6 @@ class Transaksi:
         totalharga = int(harga)* int(jumlah)
         print("Total Harga   :Rp. ",totalharga)
         discon = input("Discon  (%) :")
-        seratus = 100
         jumlahdiscon =int(discon)* (int(totalharga)/100)
         print("Total Discon   :Rp. ",jumlahdiscon)
         totalbayar =int(totalharga)-int(jumlahdiscon)
@@ -135,6 +132,7 @@ class Transaksi:
         con.close()
         return rows
         print("Transaksi Telah Tersimpan")
+        
     def totaltransaksi():
         con = sqlite3.connect("database.db")
         cur = con.cursor()
@@ -188,7 +186,7 @@ while ch != 11:
         Pengguna.daftarbaru(NamaAdmin, Password, Merk)
     elif ch == 3:
         print("Update Profil")
-        Akun, Pengguna.updateprofile(Username,Password)
+        Pengguna.updateprofile(Username,Password)
     elif ch == 4:
         print("Harga dan Detai Produk")
         print(Produk.hargadandetail())
@@ -198,25 +196,25 @@ while ch != 11:
         NamaProduk = input("Masukkan Nama Produk : ")
         Harga = input("Masukkan Harga Produk : Rp. ")
         Merk = input("Masukkan Merk Produk : ")
-        Akun,Produk.tambahproduk(ProdukId, NamaProduk, Harga, Merk)
+        Produk.tambahproduk(ProdukId, NamaProduk, Harga, Merk)
     elif ch == 6:
         print("Update Produk")
         ProdukId=input("Masukkan Kode Produk : ")
-        Akun,Produk.editdataproduk(ProdukId)
+        Produk.editdataproduk(ProdukId)
 
     elif ch == 7:
         print("Hapus Produk")
         ProdukId=input("Masukkan Kode Produk Yang Ingin di Hapus: ")
-        Akun,Produk.hapusproduk(ProdukId)
+        Produk.hapusproduk(ProdukId)
         
     elif ch == 8:
         print("Transaksi Pembelian")
         TanggalOrder= input("Masukkan Tanggal Order (dd/mm/yyyy) : ")
         ProdukID = input("Masukkan Kode Produk : ")
-        Akun,Transaksi.transaksiproduk(TanggalOrder,ProdukID)
+        Transaksi.transaksiproduk(TanggalOrder,ProdukID)
     elif ch == 9:
         print("Data Transaksi")
-        Akun,Transaksi.totaltransaksi()
+        Transaksi.totaltransaksi()
     elif ch == 10:
         print("\tTerimakasih Sudah Menggunakan SISTEM PENGOLAHAN DATA PRODUK INI")
         break
@@ -227,5 +225,3 @@ while ch != 11:
     if ch == "t":
         break
 
-
-        
