@@ -135,4 +135,97 @@ class Transaksi:
         con.close()
         return rows
         print("Transaksi Telah Tersimpan")
+    def totaltransaksi():
+        con = sqlite3.connect("database.db")
+        cur = con.cursor()
+        cur.execute('SELECT COUNT(*) from transaksi')
+        cur_result = cur.fetchone()
+        rows = cur_result[0]
+        print("Total Transaksi : ",rows)
+        con.close()
+
+def intro():
+    print("\t\t\t\t____________________________________________________________")
+    print("\t\t\t\t\t\tPENGOLAHAN PRODUK BARANG")
+    print("\t\t\t\t------------------------------------------------------------")
+
+    print("\t\t\t\t\t\tDibuat Oleh:")
+    print("\t\t\t\t\t\tSISCA CAHYA PUSPITA")
+    print("\t\t\t\t\t\tALIYA ROHMATUL ULFA")
+    print("\t\t\t\t------------------------------------------------------------")	
+
+
+ch=''
+intro()
+
+while ch != 11:
+    print("\tMAIN MENU")
+    print("\t1. Login")
+    print("\t2. Register/Daftar Akun Baru")
+    print("\t3. Update Profile")
+    print("\t4. Tampilkan Harga dan Detail Produk")
+    print("\t5. Tambah Produk Baru")
+    print("\t6. Update Produk")
+    print("\t7. Hapus Produk")
+    print("\t8. Transaksi")
+    print("\t9. Total Transaksi")
+    print("\t10. Exit")
+	
+    print("Note : Silahkan Pilih Login Terlebih Dahulu")
+    ch = int(input("\tSilahkan Input Nomor Pilihan Anda (1-9) :  "))
+    
+    if ch == 1:
+        print("Login")
+        Username = input("Masukkan email Akun Anda : ")
+        Password = input("Masukkan Password Anda : ")
+        Akun = Pengguna.login(Username,Password)
+    
+    elif ch == 2:
+        print("Daftarkan Akun Baru")
+        NamaAdmin= input("Masukkan email : ")
+        Password = input("Masukkan Password : ")
+        Merk = input("Masukkan Merk : ")
+        Pengguna.daftarbaru(NamaAdmin, Password, Merk)
+    elif ch == 3:
+        print("Update Profil")
+        Akun, Pengguna.updateprofile(Username,Password)
+    elif ch == 4:
+        print("Harga dan Detai Produk")
+        print(Produk.hargadandetail())
+    elif ch == 5:
+        print("Tambah Produk Baru")
+        ProdukId= input("Masukkan Kode Produk : ")
+        NamaProduk = input("Masukkan Nama Produk : ")
+        Harga = input("Masukkan Harga Produk : Rp. ")
+        Merk = input("Masukkan Merk Produk : ")
+        Akun,Produk.tambahproduk(ProdukId, NamaProduk, Harga, Merk)
+    elif ch == 6:
+        print("Update Produk")
+        ProdukId=input("Masukkan Kode Produk : ")
+        Akun,Produk.editdataproduk(ProdukId)
+
+    elif ch == 7:
+        print("Hapus Produk")
+        ProdukId=input("Masukkan Kode Produk Yang Ingin di Hapus: ")
+        Akun,Produk.hapusproduk(ProdukId)
+        
+    elif ch == 8:
+        print("Transaksi Pembelian")
+        TanggalOrder= input("Masukkan Tanggal Order (dd/mm/yyyy) : ")
+        ProdukID = input("Masukkan Kode Produk : ")
+        Akun,Transaksi.transaksiproduk(TanggalOrder,ProdukID)
+    elif ch == 9:
+        print("Data Transaksi")
+        Akun,Transaksi.totaltransaksi()
+    elif ch == 10:
+        print("\tTerimakasih Sudah Menggunakan SISTEM PENGOLAHAN DATA PRODUK INI")
+        break
+    else :
+        print("Error! Tidak ditemukan pilihan")
+    
+    ch = input("Apakah Mau kembali melihat MAIN MENU? (y/t) : ")
+    if ch == "t":
+        break
+
+
         
